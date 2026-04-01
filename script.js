@@ -16,13 +16,51 @@ chatWindow.textContent = "👋 Hello! How can I help you today?";
   }];
 
 
-  const workerURL = ""
+  const workerURL = "https://loreal-worker.xenzoro.workers.dev";
+
+
 
 
 /* Handle form submit */
 chatForm.addEventListener("submit",  async (event) => {
   event.preventDefault();
-  chatWindow.innerHTML = "Thinking. . ."
+  chatWindow.innerHTML = "Thinking. . .";
+
+  //add the users message to the conversation history
+  messageLog.push({ role: `user`, content: userInput.value });
+
+  try {
+
+    //send a post to cloudflare worker
+    const response = await fetch(workerURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        messages: messageLog,
+      }),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP Error: ${response.status}`);
+    }
+    // parse data from worker
+    const result = await response.json();
+    // parse reply from OpenAI structure
+    const replyText = result.choices[0].message.content;
+    // add workers response to convo history
+    messageLog.push({ role: `assistant`, content: replyText });
+    // display response to convo history
+    chatWindow.textContent = replyText;
+
+  }catch(error) {
+    console.error(`Error:`, error);
+    chatWindow.textContent = 'Something went wrong, please try again.';
+  }
+
+  userInput.value = "";
+
+
 
 
 
