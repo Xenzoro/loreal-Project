@@ -32,7 +32,8 @@ chatWindow.textContent = "👋 Hello, I am Lori, L'Oréal's AI Chatbot how can I
       - Add spacing between each step
       - Do not use bold formatting
       
-      If the question is unrelated to beauty or L'Oréal products, respond with: "I'm not sure about that."
+      If the question is unrelated to beauty or L'Oréal products, respond with a clever tie back into telling the user
+      you can only answer questions about L'Oréal
       `
   }];
 
