@@ -3,29 +3,54 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chat Assistant</title>
+    <title>L'Oréal | Smart Product Advisor</title>
+    <meta
+      name="description"
+      content="Lori, L'Oréal's AI-powered product advisor for skincare, haircare, makeup, and beauty routines."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
       rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
-    <div class="page-wrapper">
-      <!------- Header / Branding ------->
+    <div class="page-shell">
       <header class="site-header">
-        <h1 class="site-title">Smart Product Advisor</h1>
+        <div class="brand-bar"></div>
+        <div class="brand-lockup">
+          <img src="./img/loreal-logo.png" alt="L'Oréal logo" class="brand-logo" />
+          <p class="eyebrow">Beauty Tech Experience</p>
+        </div>
+
+        <div class="hero-copy">
+          <p class="section-kicker">Smart Product Advisor</p>
+          <h1>Personalized beauty guidance, designed the L'Oréal way.</h1>
+          <p class="hero-text">
+            Discover tailored recommendations for skincare, haircare, and makeup with Lori,
+            your AI-powered L'Oréal assistant.
+          </p>
+        </div>
       </header>
 
-      <!------- Chat Area ------->
       <main>
-        <section class="chatbox">
-          <div id="chatWindow" class="chat-window">
+        <section class="advisor-panel" aria-label="L'Oréal smart advisor chat">
+          <div class="panel-header">
+            <div>
+              <p class="panel-label">Live advisor</p>
+              <h2>Chat with Lori</h2>
+            </div>
+            <span class="status-pill">Online</span>
+          </div>
+
+          <div id="chatWindow" class="chat-window" aria-live="polite">
             <!-- messages will be appended here via JS -->
           </div>
 
@@ -35,23 +60,21 @@
               id="userInput"
               name="userInput"
               type="text"
-              placeholder="Ask me about products or routines…"
+              placeholder="Ask about ingredients, routines, shades, or product types"
               autocomplete="off"
               required
             />
-            <button type="submit" id="sendBtn">
-              <span class="material-icons">send</span>
-              <span class="visually-hidden">Send</span>
+            <button type="submit" id="sendBtn" aria-label="Send message">
+              <span class="material-icons">north_east</span>
             </button>
           </form>
         </section>
       </main>
 
-      <!------- Footer Links ------->
       <footer class="site-footer">
-        <p>&copy; 2025 Company Name. All rights reserved.</p>
-        <nav>
-          <!-- These URLs are placeholders -->
+        <div class="footer-mark"></div>
+        <p>© 2025 L'Oréal-inspired concept experience. All rights reserved.</p>
+        <nav aria-label="Footer links">
           <a href="#">Privacy Policy</a>
           <a href="#">Terms of Use</a>
           <a href="#">Contact</a>
@@ -59,8 +82,6 @@
       </footer>
     </div>
 
-    <!-- secrets.js can be removed when using Cloudflare Workers for API requests -->
-<!--    <script src="secrets.js"></script>-->
     <script src="script.js"></script>
   </body>
 </html>
