@@ -14,38 +14,9 @@ export default {
       return new Response(null, { headers: corsHeaders });
     }
 
-    if (request.method !== 'POST') {
-      return new Response(JSON.stringify({ error: 'Method not allowed. Use POST.' }), {
-        status: 405,
-        headers: corsHeaders
-      });
-    }
-
     const apiKey = env.OPENAI_API_KEY; // Make sure to name your secret OPENAI_API_KEY in the Cloudflare Workers dashboard
     const apiUrl = 'https://api.openai.com/v1/chat/completions';
-    if (!apiKey) {
-      return new Response(JSON.stringify({ error: 'Missing OPENAI_API_KEY secret.' }), {
-        status: 500,
-        headers: corsHeaders
-      });
-    }
-
-    let userInput;
-    try {
-      userInput = await request.json();
-    } catch {
-      return new Response(JSON.stringify({ error: 'Invalid JSON body.' }), {
-        status: 400,
-        headers: corsHeaders
-      });
-    }
-
-    if (!Array.isArray(userInput?.messages)) {
-      return new Response(JSON.stringify({ error: 'Body must include a `messages` array.' }), {
-        status: 400,
-        headers: corsHeaders
-      });
-    }
+    const userInput = await request.json();
 
     const requestBody = {
       model: 'gpt-4o',
@@ -63,13 +34,6 @@ export default {
     });
 
     const data = await response.json();
-
-    if (!response.ok) {
-      return new Response(JSON.stringify(data), {
-        status: response.status,
-        headers: corsHeaders
-      });
-    }
 
     return new Response(JSON.stringify(data), { headers: corsHeaders });
   }
