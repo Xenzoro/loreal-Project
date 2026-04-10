@@ -41,6 +41,37 @@
       </header>
 
       <main>
+        <section class="products-section" aria-label="L'Oréal product selection">
+          <div class="products-header">
+            <div>
+              <p class="panel-label">Choose Products</p>
+              <h2>Select Your Favorites</h2>
+            </div>
+          </div>
+
+          <div id="productGrid" class="product-grid">
+            <!-- product cards will be rendered here via JS -->
+          </div>
+
+          <div class="selected-products-container">
+            <div class="selected-header">
+              <p class="panel-label">Selected Products</p>
+              <h3>Your Routine</h3>
+            </div>
+            <div id="selectedProductsList" class="selected-products-list">
+              <p class="empty-state">No products selected yet.</p>
+            </div>
+            <div class="products-actions">
+              <button id="generateRoutineBtn" class="btn-primary" disabled>
+                Generate Routine
+              </button>
+              <button id="clearSelectedBtn" class="btn-secondary" disabled>
+                Clear Selected
+              </button>
+            </div>
+          </div>
+        </section>
+
         <section class="advisor-panel" aria-label="L'Oréal smart advisor chat">
           <div class="panel-header">
             <div>
