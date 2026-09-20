@@ -41,6 +41,17 @@ chatForm.addEventListener("submit",  async (event) => {
         messages: messageLog,
       }),
     });
+
+    // case for rate Limit/ timeout responses
+    if (response.status === 429) {
+      const rateLimitResult = await response.json();
+      chatWindow.textContent = rateLimitResult.message;
+      userInput.value = "";
+      return;
+    }
+
+
+
     if (!response.ok) {
       throw new Error(`HTTP Error: ${response.status}`);
     }
@@ -59,10 +70,6 @@ chatForm.addEventListener("submit",  async (event) => {
   }
 
   userInput.value = "";
-
-
-
-
 
   // When using Cloudflare, you'll need to POST a `messages` array in the body,
   // and handle the response using: data.choices[0].message.content
