@@ -619,3 +619,10 @@ img {
     width: 100%;
   }
 }
+
+/* Keyboard focus for product cards (the real checkbox inside is visually hidden).
+   Matches the send button's focus ring. Only shows for keyboard focus. */
+.product-card:has(.product-card-input:focus-visible) {
+  outline: 3px solid rgba(226, 29, 47, 0.24);
+  outline-offset: 3px;
+}

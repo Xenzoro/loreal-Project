@@ -1,8 +1,11 @@
 import { MdNorthEast } from "react-icons/md";
+import AdvisorProvider from "@/components/AdvisorProvider";
+import ProductGrid from "@/components/ProductGrid";
+import SelectedProducts from "@/components/SelectedProducts";
 
 export default function Home() {
   return (
-    <>
+    <AdvisorProvider>
       <section className="products-section" aria-label="L'Oréal product selection">
         <div className="products-header">
           <div>
@@ -11,24 +14,14 @@ export default function Home() {
           </div>
         </div>
 
-        <div id="productGrid" className="product-grid"></div>
+        <ProductGrid />
 
         <div className="selected-products-container">
           <div className="selected-header">
             <p className="panel-label">Selected Products</p>
             <h3>Your Routine</h3>
           </div>
-          <div id="selectedProductsList" className="selected-products-list">
-            <p className="empty-state">No products selected yet.</p>
-          </div>
-          <div className="products-actions">
-            <button id="generateRoutineBtn" className="btn-primary" disabled>
-              Generate Routine
-            </button>
-            <button id="clearSelectedBtn" className="btn-secondary" disabled>
-              Clear Selected
-            </button>
-          </div>
+          <SelectedProducts />
         </div>
       </section>
 
@@ -62,6 +55,6 @@ export default function Home() {
           </button>
         </form>
       </section>
-    </>
+    </AdvisorProvider>
   );
 }

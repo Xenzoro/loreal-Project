@@ -12,8 +12,8 @@ export default function SiteHeader() {
           src={`${basePath}/img/loreal-logo.webp`}
           alt="L'Oréal logo"
           className="brand-logo"
-          width={400}
-          height={73}
+          width={500}
+          height={91}
           loading="eager"
         />
         <p className="eyebrow">Beauty Tech Experience</p>
