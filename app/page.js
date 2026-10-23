@@ -1,5 +1,7 @@
-import { MdNorthEast } from "react-icons/md";
+// Server component: everything here is rendered to static HTML at build time.
+// The client components inside (cards, selected list, chat) hydrate in the browser.
 import AdvisorProvider from "@/components/AdvisorProvider";
+import ChatPanel from "@/components/ChatPanel";
 import ProductGrid from "@/components/ProductGrid";
 import SelectedProducts from "@/components/SelectedProducts";
 
@@ -34,26 +36,7 @@ export default function Home() {
           <span className="status-pill">Online</span>
         </div>
 
-        <div id="chatWindow" className="chat-window" aria-live="polite">
-          👋 Hello, I am Lori, L&apos;Oréal&apos;s AI Chatbot how can I help you today?
-        </div>
-
-        <form id="chatForm" className="chat-form">
-          <label htmlFor="userInput" className="visually-hidden">
-            Message
-          </label>
-          <input
-            id="userInput"
-            name="userInput"
-            type="text"
-            placeholder="Ask about ingredients, routines, shades, or product types"
-            autoComplete="off"
-            required
-          />
-          <button type="submit" id="sendBtn" aria-label="Send message">
-            <MdNorthEast className="icon" aria-hidden="true" />
-          </button>
-        </form>
+        <ChatPanel />
       </section>
     </AdvisorProvider>
   );
