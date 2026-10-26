@@ -1,8 +1,9 @@
 /** @type {import('next').NextConfig} */
 
 // GitHub Pages serves this repo at https://xenzoro.github.io/loreal-Project/,
-// so every URL the build generates needs that prefix.
-const basePath = "/loreal-Project";
+// so every URL the Pages build generates needs that prefix. Vercel serves the
+// site at the root of its own domain, and sets VERCEL=1 during its builds.
+const basePath = process.env.VERCEL ? "" : "/loreal-Project";
 
 const nextConfig = {
   // Build the whole site to plain HTML, CSS and JS in out/ (GitHub Pages has no server).

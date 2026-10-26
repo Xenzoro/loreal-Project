@@ -6,7 +6,7 @@ Live: https://xenzoro.github.io/loreal-Project/
 
 ## Stack
 
-- Next.js 16 (App Router, JavaScript), built as a static export and hosted on GitHub Pages.
+- Next.js 16 (App Router, JavaScript), built as a static export. Hosted on Vercel, and also deployable to GitHub Pages.
 - OpenAI GPT4o for the actual chat responses.
 - A Cloudflare Worker sitting between the frontend and OpenAI, so the API key never touches the browser.
 
@@ -58,11 +58,13 @@ npm run dev     # http://localhost:3000/loreal-Project
 npm run build   # static site in out/
 ```
 
-The site is served from `/loreal-Project` (set as `basePath` in `next.config.mjs`) to match the GitHub Pages URL.
+For GitHub Pages builds the site is served from `/loreal-Project` (`basePath` in `next.config.mjs`). On Vercel (`VERCEL=1` during builds) it is served from the root.
 
 ## Deploy
 
-Every push to `main` runs `.github/workflows/deploy.yml`, which builds the static export and publishes it to GitHub Pages. One time setup: in the repo, go to Settings, Pages, Build and deployment, and set Source to **GitHub Actions**.
+Vercel builds and deploys every push to `main` automatically, and gives every other branch a preview URL.
+
+GitHub Pages: every push to `main` runs `.github/workflows/deploy.yml`, which builds the static export and publishes it to GitHub Pages. One time setup: in the repo, go to Settings, Pages, Build and deployment, and set Source to **GitHub Actions**.
 
 ## Worker setup
 
