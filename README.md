@@ -6,7 +6,7 @@ Live: https://loreal-project.vercel.app/
 
 ## Stack
 
-- Next.js 16 (App Router, JavaScript), built as a static export. Hosted on Vercel, and also deployable to GitHub Pages.
+- Next.js 16 (App Router, JavaScript), built as a static export and hosted on Vercel.
 - OpenAI GPT4o for the actual chat responses.
 - A Cloudflare Worker sitting between the frontend and OpenAI, so the API key never touches the browser.
 
@@ -47,24 +47,22 @@ lib/
   lori.js          Worker URL, system prompt, routine request text
   selectionStore.js  Selected products in localStorage
 public/img/        Logo (WebP)
-.github/workflows/deploy.yml   Builds and deploys to GitHub Pages
+.github/workflows/pages-redirect.yml   GitHub Pages redirect to Vercel
 ```
 
 ## Develop
 
 ```bash
 npm install
-npm run dev     # http://localhost:3000/loreal-Project
+npm run dev     # http://localhost:3000
 npm run build   # static site in out/
 ```
-
-For GitHub Pages builds the site is served from `/loreal-Project` (`basePath` in `next.config.mjs`). On Vercel (`VERCEL=1` during builds) it is served from the root.
 
 ## Deploy
 
 Vercel builds and deploys every push to `main` automatically, and gives every other branch a preview URL.
 
-GitHub Pages: every push to `main` runs `.github/workflows/deploy.yml`, which builds the static export and publishes it to GitHub Pages. One time setup: in the repo, go to Settings, Pages, Build and deployment, and set Source to **GitHub Actions**.
+The old GitHub Pages address (https://xenzoro.github.io/loreal-Project/) only redirects to Vercel, keeping the rest of the path. `.github/workflows/pages-redirect.yml` publishes that redirect page; it runs when the workflow file changes or by hand from the Actions tab. One time setup: Settings, Pages, Build and deployment, Source: **GitHub Actions**.
 
 ## Worker setup
 
@@ -73,4 +71,4 @@ The Worker needs:
 - `OPENAI_API_KEY` set as a secret.
 - A KV namespace bound as `RATE_LIMIT_KV` for the rate limiting to work.
 
-The frontend points at the Worker URL in `lib/lori.js`. If the Worker restricts which sites may call it (CORS), allow `https://loreal-project.vercel.app` (and `https://xenzoro.github.io` if the Pages copy is kept).
+The frontend points at the Worker URL in `lib/lori.js`. If the Worker restricts which sites may call it (CORS), allow `https://loreal-project.vercel.app`.

@@ -1,15 +1,12 @@
 import Image from "next/image";
 
-// next/image doesn't add basePath to src, so it's added here.
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
-
 export default function SiteHeader() {
   return (
     <header className="site-header">
       <div className="brand-bar"></div>
       <div className="brand-lockup">
         <Image
-          src={`${basePath}/img/loreal-logo.webp`}
+          src="/img/loreal-logo.webp"
           alt="L'Oréal logo"
           className="brand-logo"
           width={500}
