@@ -2,9 +2,11 @@
 
 An AI beauty advisor chatbot for L'Oréal products. You pick products from a catalog, and the chatbot (Lori) builds you a personalized routine using only the products you actually selected. It won't recommend something you didn't pick.
 
+Live: https://xenzoro.github.io/loreal-Project/
+
 ## Stack
 
-- Vanilla JS, HTML, and CSS on the frontend. No frameworks.
+- Next.js 16 (App Router, JavaScript), built as a static export. Hosted on Vercel, and also deployable to GitHub Pages.
 - OpenAI GPT4o for the actual chat responses.
 - A Cloudflare Worker sitting between the frontend and OpenAI, so the API key never touches the browser.
 
@@ -26,11 +28,49 @@ Timeout messages show up in the chat prefixed with `SYSTEM:` so it's clear that'
 
 There's also a monthly spending cap set directly on the OpenAI account. That's a separate, independent layer of protection on top of the rate limiting, not a replacement for it.
 
-## Setup
+## Project structure
+
+```
+app/
+  layout.js        Fonts (next/font), metadata, header, <main>, footer
+  page.js          The page (server component, rendered to HTML at build time)
+  globals.css      All styles
+  fonts/           Self hosted Inter and Playfair Display (variable, latin)
+components/
+  SiteHeader.js    Logo and hero (server)
+  SiteFooter.js    Footer (server)
+  AdvisorProvider.js  Shared state: selected products and chat (client)
+  ProductGrid.js, ProductCard.js, SelectedProducts.js   Product picker (client)
+  ChatPanel.js     Chat window, Thinking loader and message form (client)
+lib/
+  products.js      Product catalog
+  lori.js          Worker URL, system prompt, routine request text
+  selectionStore.js  Selected products in localStorage
+public/img/        Logo (WebP)
+.github/workflows/deploy.yml   Builds and deploys to GitHub Pages
+```
+
+## Develop
+
+```bash
+npm install
+npm run dev     # http://localhost:3000/loreal-Project
+npm run build   # static site in out/
+```
+
+For GitHub Pages builds the site is served from `/loreal-Project` (`basePath` in `next.config.mjs`). On Vercel (`VERCEL=1` during builds) it is served from the root.
+
+## Deploy
+
+Vercel builds and deploys every push to `main` automatically, and gives every other branch a preview URL.
+
+GitHub Pages: every push to `main` runs `.github/workflows/deploy.yml`, which builds the static export and publishes it to GitHub Pages. One time setup: in the repo, go to Settings, Pages, Build and deployment, and set Source to **GitHub Actions**.
+
+## Worker setup
 
 The Worker needs:
 
 - `OPENAI_API_KEY` set as a secret.
 - A KV namespace bound as `RATE_LIMIT_KV` for the rate limiting to work.
 
-The frontend is just static files (`index.html`, `style.css`, `script.js`), so you can serve those from anywhere. Just point `script.js` at your deployed Worker URL.
+The frontend points at the Worker URL in `lib/lori.js`. If the Worker restricts which sites may call it (CORS), allow `https://xenzoro.github.io`.
