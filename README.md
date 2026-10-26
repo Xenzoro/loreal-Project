@@ -2,7 +2,7 @@
 
 An AI beauty advisor chatbot for L'Oréal products. You pick products from a catalog, and the chatbot (Lori) builds you a personalized routine using only the products you actually selected. It won't recommend something you didn't pick.
 
-Live: https://xenzoro.github.io/loreal-Project/
+Live: https://loreal-project.vercel.app/
 
 ## Stack
 
@@ -73,4 +73,4 @@ The Worker needs:
 - `OPENAI_API_KEY` set as a secret.
 - A KV namespace bound as `RATE_LIMIT_KV` for the rate limiting to work.
 
-The frontend points at the Worker URL in `lib/lori.js`. If the Worker restricts which sites may call it (CORS), allow `https://xenzoro.github.io`.
+The frontend points at the Worker URL in `lib/lori.js`. If the Worker restricts which sites may call it (CORS), allow `https://loreal-project.vercel.app` (and `https://xenzoro.github.io` if the Pages copy is kept).
